@@ -8,17 +8,12 @@ pInput.append(0)
 pInput.sort()
 pInput.append(pInput[-1] + 3)
 memoDict = {}
-omittable = []
 
-for i in range(2,len(pInput)):
-  if pInput[i] - pInput[i-1] == 1 and pInput[i] - pInput[i-2] == 2:
-    omittable.append(pInput[i-1])
+for x in pInput:
+  if x == 0:
+    memoDict[x] = 1
+    continue
 
-memoDict[tuple(omittable)] = pInput.copy()
+  memoDict[x] = memoDict.get(x-3,0) + memoDict.get(x-2,0) + memoDict.get(x-1,0)
 
-for x in omittable:
-  pInput.remove(x)
-
-memoDict[tuple([])] = pInput.copy()
-
-print(len(memoDict))
+print(memoDict[pInput[-1]])
